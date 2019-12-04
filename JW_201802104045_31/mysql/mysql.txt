@@ -1,0 +1,41 @@
+create database bysj default character set utf8 collate utf8_general_ci;
+
+
+create table School(
+ id bigint not null auto_increment,
+ description varchar(225) not null,
+ no varchar(225),
+ remarks varchar(225),
+ primary key(id)
+);
+
+show variables like'%time_zone';  
+set global time_zone = '+8:00'; 
+
+alter table school drop index no;
+alter table school add unique(no);
+
+
+create table department(
+id bigint not null auto_increment,
+description varchar(225) not null,
+ no varchar(225),
+ remarks varchar(225),
+school_id bigint not null,
+primary key(id),
+foreign key(school_id) references school(id)
+);
+
+create table teacher(
+id bigint not null auto_increment,
+name varchar(225) not null,
+proftitle_id bigint not null,
+degree_id bigint not null,
+department_id bigint not null,
+foreign key(proftitle_id) references proftitle(id),
+foreign key(degree_id) references degree(id),
+foreign key(department_id) references department(id),
+primary key(id)
+);
+
+
