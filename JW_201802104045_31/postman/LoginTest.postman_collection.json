@@ -102,6 +102,41 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:8080/user.ctl?",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":9,\"loginTime\":\"2019-12-02\",\"password\":\"45\",\"teacher\":{\"degree\":{\"description\":\"博士\",\"id\":1,\"no\":\"01\",\"remarks\":\"优秀\"},\"department\":{\"description\":\"工管\",\"id\":8,\"no\":\"09\",\"remarks\":\"\",\"school\":{\"description\":\"管理工程学院\",\"id\":1,\"no\":\"0202\",\"remarks\":\"best\"}},\"id\":30,\"name\":\"刘涛\",\"no\":\"28\",\"title\":{\"description\":\"讲师\",\"id\":6,\"no\":\"03\",\"remarks\":\"the\r\nbest\"}},\"username\":\"28\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/user.ctl",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"user.ctl"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"protocolProfileBehavior": {}

@@ -5,6 +5,7 @@ import cn.edu.sdjzu.xg.bysj.service.UserService;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
+import util.JSONUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -79,5 +80,29 @@ public class UserController extends HttpServlet {
         //将对象转化为json字串
         String users_json = JSON.toJSONString(user, SerializerFeature.DisableCircularReferenceDetect);
         response.getWriter().println(users_json);
+    }
+
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //设置请求字符编码为UTF-8
+        request.setCharacterEncoding("UTF-8");
+        String user_json = JSONUtil.getJSON(request);
+        //将JSON字串解析为Department对象
+        User passwordTochange = JSON.parseObject(user_json, User.class);
+        //设置响应字符编码为UTF-8
+        response.setContentType("text/html;charset=UTF-8");
+        //创建JSON对象message，以便往前端响应信息
+        JSONObject message = new JSONObject();
+        //到数据库表修改User对象对应的记录
+        try {
+            UserService.getInstance().changePassword(passwordTochange);
+            message.put("message", "修改成功");
+        }catch (SQLException e){
+            message.put("message", "数据库操作异常");
+            e.printStackTrace();
+        }catch(Exception e){
+            message.put("message", "网络异常");
+        }
+        //响应message到前端
+        response.getWriter().println(message);
     }
 }

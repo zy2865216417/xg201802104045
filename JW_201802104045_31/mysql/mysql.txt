@@ -38,4 +38,9 @@ foreign key(department_id) references department(id),
 primary key(id)
 );
 
+.\mysqld -install mysql55
+net start mysql55
+.\mysql -uroot -p
+use bysj;
+
 

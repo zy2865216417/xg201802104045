@@ -28,8 +28,8 @@ public final class UserService {
 	public User findByUsername(String username) throws SQLException,ClassNotFoundException{
 		return userDao.findByUsername(username);
 	}
-	public boolean changePassword(String username,String newPassword) throws SQLException{
-		return userDao.changePassword(username,newPassword);
+	public boolean changePassword(User user) throws SQLException{
+		return userDao.changePassword(user);
 	}
 	public User getUser(Integer id) throws SQLException,ClassNotFoundException {
 		return userDao.find(id);

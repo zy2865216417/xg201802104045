@@ -116,14 +116,14 @@ public final class UserDao {
 		return user;
 	}
 
-	public boolean changePassword(String username,String newPassword) throws SQLException{
+	public boolean changePassword(User user) throws SQLException{
         //获取数据库连接对象
 		Connection connection = JdbcHelper.getConn();
         //在该连接上创建语句盒子对象
-		PreparedStatement preparedStatement = connection.prepareStatement("update user set password = ? where username=?");
+		PreparedStatement preparedStatement = connection.prepareStatement("update user set password = ? where id=?");
         //为预编译语句赋值
-		preparedStatement.setString(1,newPassword);
-		preparedStatement.setString(2,username);
+		preparedStatement.setString(1,user.getPassword());
+		preparedStatement.setInt(2,user.getId());
         //执行预编译语句，用其返回值、影响的行为数为赋值affectedRowNum
 		int affectedRowNum = preparedStatement.executeUpdate();
 		JdbcHelper.close(preparedStatement,connection);
@@ -152,8 +152,6 @@ public final class UserDao {
 	public static void main(String[] args) throws SQLException,ClassNotFoundException{
 		User user = UserService.getInstance().login("28","28");
 		System.out.println(user);
-		boolean a = UserService.getInstance().changePassword("28","29");
-		System.out.println(a);
 		User user1 = UserService.getInstance().find(10);
 		System.out.println(user1);
 		User user2 = UserService.getInstance().findByUsername("28");
